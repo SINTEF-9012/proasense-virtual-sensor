@@ -17,13 +17,48 @@
  */
 package net.modelbased.proasense.virtual.sensor;
 
+import eu.proasense.internal.SimpleEvent;
 import net.modelbased.proasense.adapter.base.AbstractBaseAdapter;
+
+import java.util.concurrent.BlockingQueue;
 
 
 public abstract class AbstractVirtualSensor extends AbstractBaseAdapter {
+    protected BlockingQueue<SimpleEvent> queue;
     protected KafkaConsumerInput inputPort;
+    protected String propertyName;
+    protected String propertyType;
+    protected int samplingRate;
+    protected int rateMin;
+    protected int rateMax;
+
 
     public AbstractVirtualSensor() {
+        // Kafka input port properties
+        String zooKeeper = adapterProperties.getProperty("zookeeper.connect");
+        String groupId = adapterProperties.getProperty("kafka.groupid");
+        String topic = adapterProperties.getProperty("proasense.virtual.sensor.incoming.topic");
+
+        inputPort = new KafkaConsumerInput(queue, zooKeeper, groupId, topic, adapterProperties);
+
+        // Virtual sensor properties
+        this.propertyName = adapterProperties.getProperty("proasense.virtual.sensor.property.name");
+        this.propertyType = adapterProperties.getProperty("proasense.virtual.sensor.property.type");
+        this.samplingRate = new Integer(adapterProperties.getProperty("proasense.virtual.sensor.rate.default")).intValue();
+        this.rateMin = new Integer(adapterProperties.getProperty("proasense.virtual.sensor.rate.min")).intValue();
+        this.rateMax = new Integer(adapterProperties.getProperty("proasense.virtual.sensor.rate.max")).intValue();
+    }
+
+    // RESTful interface
+    public void changeSamplingRate(int newSamplingRate) {
+        if (newSamplingRate < this.rateMin) {
+            this.samplingRate = this.rateMin;
+        }
+        else if (newSamplingRate > this.rateMax) {
+            this.samplingRate = this.rateMax;
+        }
+        else
+            this.samplingRate = newSamplingRate;
     }
 
 }
