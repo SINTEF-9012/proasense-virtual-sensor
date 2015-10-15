@@ -20,9 +20,16 @@ package net.modelbased.proasense.virtual.example;
 import net.modelbased.proasense.virtual.sensor.AbstractVirtualSensor;
 
 public class MyVirtualSensor extends AbstractVirtualSensor {
+    private long value;
 
     public MyVirtualSensor() {
+        // Consume messages from input port
 
+        // Calculate moving average until
+
+        // Create new simple event
+
+        // Publish new simple event
     }
 
 }

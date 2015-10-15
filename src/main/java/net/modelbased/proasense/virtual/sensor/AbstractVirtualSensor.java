@@ -22,7 +22,14 @@ import net.modelbased.proasense.adapter.base.AbstractBaseAdapter;
 
 import java.util.concurrent.BlockingQueue;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+@Path("/")
 public abstract class AbstractVirtualSensor extends AbstractBaseAdapter {
     protected BlockingQueue<SimpleEvent> queue;
     protected KafkaConsumerInput inputPort;
@@ -59,6 +66,27 @@ public abstract class AbstractVirtualSensor extends AbstractBaseAdapter {
         }
         else
             this.samplingRate = newSamplingRate;
+    }
+
+    @GET
+    @Path("/adapter/status")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getServerStatus() {
+        String result = "Virtual Sensor running...";
+
+        // Return HTTP response 200 in case of success
+        return Response.status(200).entity(result).build();
+    }
+
+
+    @GET
+    @Path("/adapter/properties")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response printServerProperties() {
+        String result = this.adapterProperties.toString();
+
+        // Return HTTP response 200 in case of success
+        return Response.status(200).entity(result).build();
     }
 
 }
