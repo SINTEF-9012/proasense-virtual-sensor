@@ -11,6 +11,11 @@
 
     <repositories>
         <repository>
+            <id>maven-central</id>
+            <name>Maven central repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
             <id>archiva.public</id>
             <name>Nissatech Public Repository</name>
             <url>http://maven.nissatech.com/repository/public/</url>
@@ -24,14 +29,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.proasense.internal</groupId>
-            <artifactId>thrift-messages</artifactId>
-            <version>0.4</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.SINTEF-9012</groupId>
             <artifactId>proasense-adapter-base</artifactId>
-            <version>032d97c688c718ed2ba52c7006a61a30f9031f8f</version>
+            <version>e45bb6c346c87eeebe51944197521131e810c6f1</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.proasense.internal</groupId>
+            <artifactId>thrift-messages</artifactId>
+            <version>0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.thrift</groupId>
@@ -52,12 +63,6 @@
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -91,6 +96,7 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
