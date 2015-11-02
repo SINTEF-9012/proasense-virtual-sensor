@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.modelbased.proasense.storage.adapter;
+package net.modelbased.proasense.adapter;
 
-import net.modelbased.proasense.storage.model.JsonPrinter;
-import net.modelbased.proasense.storage.model.Sensor;
+//import net.modelbased.proasense.storage.model.JsonPrinter;
+//import net.modelbased.proasense.storage.model.Sensor;
 //import net.modelbased.proasense.storage.registry.RestRequest;
 
 import eu.proasense.internal.ComplexValue;
@@ -50,7 +50,7 @@ import java.util.concurrent.Executors;
 public class DataInfrastructureAdapterConsumer {
 	private final ConsumerConnector consumer;
     private final KafkaProducer<String, byte[]> producer;
-    private final Sensor sensor;
+//    private final Sensor sensor;
 	private String topic;
 	private ExecutorService executor;
 
@@ -60,7 +60,7 @@ public class DataInfrastructureAdapterConsumer {
 
         consumer = createConsumer(a_zookeeper, a_groupId);
         producer = createProducer(a_zookeeper);
-        sensor = createSensAppSensor("http://127.0.0.1:8090", "MHWirth/DDM.HookLoad");
+//        sensor = createSensAppSensor("http://127.0.0.1:8090", "MHWirth/DDM.HookLoad");
 
         // Consume message
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
@@ -220,7 +220,7 @@ public class DataInfrastructureAdapterConsumer {
         return producer;
     }
 
-
+/**
     public Sensor createSensAppSensor(String url, String sensorName) {
         Sensor sensor = null;
 
@@ -236,7 +236,7 @@ public class DataInfrastructureAdapterConsumer {
 
         return sensor;
     }
-
+**/
 
     private String convertTagToSensorId(String tag) {
         String sensorId = "";
